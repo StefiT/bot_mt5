@@ -12,6 +12,7 @@ Descriere • Instalare • Utilizare • Fișiere • Configurare • Depanare
 
 </div>
 📖 Descriere
+
 Acest proiect conține un sistem complet de tranzacționare automată pentru MetaTrader 5, scris în Python. Sistemul include:
 
 🤖 Bot principal cu strategie EMA pentru tranzacționare automată
