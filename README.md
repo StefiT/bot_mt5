@@ -110,7 +110,7 @@ Limită: 1 tranzacție pe minut pentru a evita overtrading
 
 Setări Configurabile
 python
-# În bot_mt5.py poți modifica:
+În bot_mt5.py poți modifica:
 SYMBOL = "USDJPY"                  # Perechea valutară
 LOT_SIZE = 0.01                    # Dimensiunea lotului (0.01 = 1,000 unități)
 STOP_LOSS_TICKS = 10               # Stop Loss în ticks
