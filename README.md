@@ -1,328 +1,204 @@
 # bot_mt5
 
-🤖 Bot de Tranzacționare MetaTrader 5
-<div align="center">
-https://img.shields.io/badge/Python-3.7+-blue.svg
-https://img.shields.io/badge/Platform-MetaTrader%25205-orange.svg
-https://img.shields.io/badge/Automated-Trading-brightgreen.svg
+Bot de Tranzacționare MetaTrader 5
+Descriere
+Acest proiect contine un sistem complet de tranzactionare automata pentru MetaTrader 5, scris în Python. Sistemul include bot principal pentru tranzactionare automata, instrumente de diagnostic si verificari rapide.
 
-Sistem complet de tranzacționare automată pentru MetaTrader 5
+ATENTIE: Acest bot este destinat pentru învatare si testare. Folositi întotdeauna conturi DEMO pentru testare si înțelegeți riscurile tranzactionarii automate.
 
-Descriere • Instalare • Utilizare • Fișiere • Configurare • Depanare
+Instalare
+Cerinte Preliminare
+MetaTrader 5 - Descarcat de pe site-ul oficial
 
-</div>
-📖 Descriere
+Python 3.7+ - Descarcat de pe python.org
 
-Acest proiect conține un sistem complet de tranzacționare automată pentru MetaTrader 5, scris în Python. Sistemul include:
-
-🤖 Bot principal cu strategie EMA pentru tranzacționare automată
-
-🔍 Instrumente de diagnostic pentru depanare aprofundată
-
-✅ Verificări rapide pentru validarea rapidă a sistemului
-
-⚙️ Configurare flexibilă pentru diferite strategii și perechi valutare
-
-⚠️ IMPORTANT: Acest bot este destinat pentru învățare și testare. Folosiți întotdeauna conturi DEMO pentru testare și înțelegeți riscurile tranzacționării automate.
-
-🚀 Instalare Rapidă
-Cerințe Preliminare
-MetaTrader 5 - Descarcă de aici
-
-Python 3.7+ - Descarcă de aici
-
-Cont DEMO - Înregistrează-te la un broker care oferă cont demo MT5
+Cont DEMO - Înregistrare la un broker care oferă cont demo MT5
 
 Configurare MetaTrader 5
-Deschide MetaTrader 5 și loghează-te pe contul DEMO
+Deschideți MetaTrader 5 si logati-va pe contul DEMO
 
-Activează Trading Automat:
+Activati Trading Automat:
 
-Click dreapta în orice grafic → Expert Advisors → ✅ Allow Automated Trading
+Click dreapta în orice grafic -> Expert Advisors -> Allow Automated Trading
 
-Butonul "Auto Trading" trebuie să fie VERDE
+Butonul "Auto Trading" trebuie sa fie verde
 
-Adaugă simbolul în Market Watch:
+Adaugati simbolul în Market Watch:
 
-Apasă Ctrl+M pentru fereastra Market Watch
+Apasati Ctrl+M pentru fereastra Market Watch
 
-Click dreapta → Symbols → Caută USDJPY → Bifează → Show
+Click dreapta -> Symbols -> Cautati USDJPY -> Bifati -> Show
 
-Instalare Python Packages
-bash
-# Instalează pachetele necesare
-pip install MetaTrader5 pandas
-Descarcă Proiectul
-bash
-# Clonează repository-ul sau descarcă fișierele manual
-git clone [URL_REPOSITORY]
+Instalare Pachete Python: pip install MetaTrader5 pandas
 
-cd MT5-Trading-Bot
+Descarcare Proiect: git clone [URL-ul repository-ului]
+                    cd MT5-Trading-Bot
 
-📁 Structura Proiectului
+Fisiere Proiect
+bot_mt5.py - Botul principal de tranzactionare cu strategie EMA
 
-MT5-Trading-Bot/
+diagnostic.py - Script de diagnostic detaliat pentru depanare
 
-├── 🤖 bot_mt5.py          # Botul principal de tranzacționare
+checks.py - Script pentru verificari rapide pre-trading
 
-├── 🔍 diagnostic.py       # Diagnostic detaliat al sistemului
+Utilizare
+Verificari Initiale: python checks.py
 
-├── ✅ checks.py           # Verificări rapide pre-trading
+Dupa rulare, trebuie sa vedeti toate verificările cu bifa verde (✅).
 
-└── 📚 README.md           # Această documentație
-🎯 Utilizare
-Pasul 1: Verificări Inițiale
-bash
-# Verificare rapidă a sistemului (10 secunde)
-python checks.py
-Așteaptă să vezi:
+Diagnostic Complet (Optional): python diagnostic.py
 
-text
-📋 LISTĂ DE VERIFICĂRI:
-   ✅ MT5 deschis și cont logat
-   ✅ Buton Auto Trading activat
-   ✅ Simbol în Market Watch
-   ✅ Conexiune internet stabilă
-   ✅ Cont demo (nu real) pentru teste
-   ✅ Fonduri suficiente
-   ✅ Alt EA nu rulează
-Pasul 2: Diagnostic Complet (Opțional)
-bash
-# Diagnostic detaliat pentru probleme complexe
-python diagnostic.py
-Pasul 3: Pornește Botul
-bash
-# Rulează botul principal
-python bot_mt5.py
-🤖 Botul Principal (bot_mt5.py)
-Strategia Implementată
-Botul folosește o strategie EMA (Exponential Moving Average):
+Pornire Bot Principal: python bot_mt5.py
+
+Botul Principal (bot_mt5.py)
+Strategie
+Botul foloseste o strategie EMA (Exponential Moving Average):
 
 EMA 14 pe timeframe M1 (1 minut)
 
-Cumpără când prețul Bid este PESTE EMA
+Cumpara cand pretul Bid este PESTE EMA
 
-Vinde când prețul Bid este SUB EMA
+Vinde cand pretul Bid este SUB EMA
 
 Stop Loss: 10 ticks | Take Profit: 20 ticks
 
-Limită: 1 tranzacție pe minut pentru a evita overtrading
-
-Setări Configurabile
-python
-În bot_mt5.py poți modifica:
-SYMBOL = "USDJPY"                  # Perechea valutară
-LOT_SIZE = 0.01                    # Dimensiunea lotului (0.01 = 1,000 unități)
-STOP_LOSS_TICKS = 10               # Stop Loss în ticks
-TAKE_PROFIT_TICKS = 20             # Take Profit în ticks
-TRADING_START_HOUR = 0             # Ora de start (0 = miezul nopții)
-TRADING_END_HOUR = 23              # Ora de sfârșit (23 = 11 PM)
-TIMEOUT_MINUTES = 30               # Durată maximă de rulare
-EMA_PERIOD = 14                    # Perioada EMA
-TIMEFRAME = mt5.TIMEFRAME_M1       # Timeframe-ul de analiză
-Exemplu de Output
-text
-🤖 BOT MT5 PORNIT - STRATEGIE EMA
-==================================================
-✅ MT5 inițializat cu succes!
-📊 [14:23:20] Bid: 147.868, EMA: 147.855
-🎯 Condiție CUMPĂRARE: Bid 147.868 > EMA 147.855
-✅ ✅ ORDIN REUȘIT! Ticket: 53460019976
-📈 Ordin de cumpărare #1 plasat cu succes!
-⏳ Aștept 55s până la următorul trade...
-🔍 Diagnostic.py - Instrument de Depanare
-Când să folosești Diagnostic.py
-🔧 La prima configurare
-
-🐛 Când apar erori neașteptate
-
-🔄 După update-uri MT5
-
-📡 Când conexiunea nu funcționează
-
-Ce verifică
-bash
-python diagnostic.py
-Output așteptat:
+Limita: 1 tranzactie pe minut
 
-text
-🔍 DIAGNOSTIC COMPLET MT5
-============================================================
-1. 🔄 Inițializare MT5... ✅
-2. 💻 Informații terminal... ✅  
-3. 👤 Informații cont... ✅
-4. 📈 Verific simbolul USDJPY... ✅
-5. ⏰ Verific date tick... ✅
-6. 🔐 Verific permisiuni trading... ✅
-7. 🧪 Test ordin simplu... ✅ ✅ ✅ ORDIN TEST REUȘIT!
-✅ Checks.py - Verificări Rapide
-Când să folosești Checks.py
-🚀 Înainte de fiecare rulare a botului
+Setari Configurabile
+In fisierul bot_mt5.py puteti modifica:
+   SYMBOL = "USDJPY"                  # Perechea valutară
+   LOT_SIZE = 0.01                    # Dimensiunea lotului
+   STOP_LOSS_TICKS = 10               # Stop Loss în ticks
+   TAKE_PROFIT_TICKS = 20             # Take Profit în ticks
+   TRADING_START_HOUR = 0             # Ora de start
+   TRADING_END_HOUR = 23              # Ora de sfârșit
+   TIMEOUT_MINUTES = 30               # Durata rulare
+   EMA_PERIOD = 14                    # Perioada EMA
+   TIMEFRAME = mt5.TIMEFRAME_M1       # Timeframe-ul
 
-📅 La pornirea zilnică a sistemului
+Diagnostic.py - Instrument Depanare
+Cand sa folositi
+La prima configurare
 
-⚡ Pentru verificări rapide de sănătate
+Cand apar erori neasteptate
 
-Verificări efectuate
-✅ MT5 deschis și cont logat
+Dupa update-uri MT5
 
-✅ Buton Auto Trading activat
+Cand conexiunea nu functioneaza
 
-✅ Simbol în Market Watch
+Utilizare: python diagnostic.py
 
-✅ Conexiune internet stabilă
+Diagnostic.py - Instrument Depanare
+Cand sa folositi
+La prima configurare
 
-✅ Cont demo (nu real)
+Cand apar erori neasteptate
 
-✅ Fonduri suficiente
+Dupa update-uri MT5
 
-✅ Fără alte Expert Advisors activi
+Cand conexiunea nu functioneaza
 
-⚙️ Personalizare Avansată
-Schimbă Perechea Valutară
-python
-# În bot_mt5.py
-SYMBOL = "EURUSD"  # Schimbă în orice alt simbol disponibil
-Modifică Strategia
-python
-# În funcția principală din bot_mt5.py, poți modifica condiția:
+Checks.py - Verificari Rapide
+Cand sa folositi
+Înainte de fiecare rulare a botului
 
-# Exemplu: Cumpără doar dacă prețul este cu 0.1% peste EMA
-if tick.bid > ema * 1.001:
-    place_order(mt5.ORDER_TYPE_BUY, STOP_LOSS_TICKS, TAKE_PROFIT_TICKS)
+La pornirea zilnica a sistemului
 
-# Exemplu: Vinde doar dacă prețul este cu 0.1% sub EMA  
-elif tick.bid < ema * 0.999:
-    place_order(mt5.ORDER_TYPE_SELL, STOP_LOSS_TICKS, TAKE_PROFIT_TICKS)
-Timeframe-uri Disponibile
-python
-TIMEFRAME = mt5.TIMEFRAME_M1    # 1 minut
-TIMEFRAME = mt5.TIMEFRAME_M5    # 5 minute
-TIMEFRAME = mt5.TIMEFRAME_M15   # 15 minute
-TIMEFRAME = mt5.TIMEFRAME_H1    # 1 oră
-TIMEFRAME = mt5.TIMEFRAME_H4    # 4 ore
-🛠 Depanare
-Probleme Comune și Soluții
-❌ "Failed to initialize MT5"
-Cauze:
+Pentru verificari rapide
 
-MT5 nu este deschis
+Verificari efectuate
+MT5 deschis si cont logat
 
-Contul nu este logat
+Buton Auto Trading activat
 
-Probleme de permisiuni
+Simbol în Market Watch
 
-Soluții:
+Conexiune internet stabila
 
-Deschide MetaTrader 5 și loghează-te
+Cont demo (nu real)
 
-Rulează python checks.py pentru verificare
+Fonduri suficiente
 
-Dacă persistă, rulează python diagnostic.py pentru detalii
+Fara alte Expert Advisors activi
+Depanare
+Probleme Comune
+"Failed to initialize MT5"
 
-❌ Eroare 10027 - "Trade context busy"
-Soluție: Botul se reîncearcă automat. Așteaptă 5-10 secunde.
+Cauze: MT5 nu este deschis, contul nu este logat
 
-❌ Eroare 10030 - "Unsupported filling mode"
-Soluție: Folosește scripturile actualizate care elimină type_filling.
+Solutii: Deschideti MT5, rulati python checks.py
 
-❌ "No tick data available"
-Soluție:
+Eroare 10027 - "Trade context busy"
 
-Verifică dacă simbolul este în Market Watch
+Solutie: Botul se reîncearca automat. Asteptati 5-10 secunde.
 
-Așteaptă conexiunea la piață
+Eroare 10030 - "Unsupported filling mode"
 
-Rulează python checks.py
+Solutie: Folositi scripturile actualizate
 
-❌ Butonul "Auto Trading" nu devine verde
-Soluție:
+"No tick data available"
 
-Click dreapta în grafic → Expert Advisors → Allow Automated Trading
+Solutie: Verificati daca simbolul este în Market Watch
 
-Restartează MT5
+Flux Depanare Recomandat
+Rulati python checks.py
 
-Verifică dacă antivirusul blochează MT5
+Daca exista probleme, rulati python diagnostic.py
 
-Flux de Depanare Recomandat
-Verifică rapid cu python checks.py
+Rezolvati problemele identificate
 
-Dacă există probleme, rulează python diagnostic.py
+Rulati din nou python checks.py
 
-Rezolvă problemele identificate
+Porniti botul principal cu python bot_mt5.py
 
-Rulează din nou python checks.py pentru confirmare
+Avertizari Securitate
+FOLOSITI DOAR CONT DEMO pentru testare
 
-Pornește botul principal cu python bot_mt5.py
+TESTATI CU VOLUME MICI (0.01 lot)
 
-⚠️ Avertismente de Securitate
-⚠️ FOLOSEȘTE DOAR CONT DEMO pentru testare
+MONITORIZATI primele rulari ale botului
 
-⚠️ TESTEAZĂ CU VOLUME MICI (0.01 lot)
+ÎNȚELECETI RISCURILE tranzactionarii automate
 
-⚠️ MONITORIZEAZĂ primele rulări ale botului
+FACETI BACKUP la cod înainte de modificari
 
-⚠️ ÎNȚELEGE RISCURILE tranzacționării automate
+NU FOLOSITI BANII necesari pentru traiul zilnic
 
-⚠️ FAȚI BACKUP la cod înainte de modificări
+Mentenanta
+Verificari Periodice
+Actualizati MetaTrader 5 la versiunea latest
 
-⚠️ NU FOLOSI BANII NECESARI pentru traiul zilnic
+Rulati python checks.py înainte de rulari importante
 
-🔄 Mentenanță și Actualizări
-Verificări Periodice
-✅ Actualizează MetaTrader 5 la versiunea latest
+Verificati logs pentru erori neasteptate
 
-✅ Rulează python checks.py înainte de rulări importante
+Actualizati pachetele Python
 
-✅ Verifică logs pentru erori neașteptate
+Suport
+Daca întâmpinati probleme:
 
-✅ Actualizează pachetele Python (pip install --upgrade MetaTrader5 pandas)
+Verificati aceasta documentatie mai întâi
 
-Upgrade la Versiuni Viitoare
-Când actualizezi scripturile:
+Folositi diagnostic.py pentru a identifica problemele
 
-Salvează configurațiile personalizate
+Asigurati-va ca toti pasii de instalare sunt respectati
 
-Compară fișierele vechi cu cele noi
+Performanta si Monitorizare
+Pentru a monitoriza performanta botului:
 
-Testează pe cont DEMO înainte de a folosi versiunea nouă
+Verificati fisierele de log generate de bot
 
-Actualizează documentația dacă este necesar
+Monitorizati contul în MT5 pentru tranzactii
 
-📞 Suport și Contribuții
-Dacă întâmpinați probleme sau aveți sugestii:
+Folositi ferestrele "Trade" si "History" din MT5
 
-Verificați această documentație mai întâi
+Verificati tab-ul "Experts" din jurnalul MT5 pentru erori
 
-Folosiți diagnostic.py pentru a identifica problemele
+Urmatorii Pasi Recomandati
+Testati pe cont DEMO timp de cel putin 1 saptamâna
 
-Asigurați-vă că toți pașii de instalare sunt respectați
+Analizati performanta si ajustati parametrii
 
-📊 Performanță și Monitorizare
-Pentru a monitoriza performanța botului:
+Personalizati strategia dupa preferinte
 
-Verificați fișierele de log generate de bot
-
-Monitorizați contul în MT5 pentru tranzacții
-
-Folosiți ferestrele "Trade" și "History" din MT5
-
-Verificați tab-ul "Experts" din jurnalul MT5 pentru erori
-
-🎉 Felicitări!
-Acum ai un sistem complet de tranzacționare automată pentru MetaTrader 5.
-
-Următorii pași recomandați:
-
-🧪 Testează pe cont DEMO timp de cel puțin 1 săptămână
-
-📊 Analizează performanța și ajustează parametrii
-
-🔧 Personalizează strategia după preferințe
-
-⚡ Automatizează rularea cu task scheduler
-
-<div align="center">
-💡 Remember: Successful trading requires continuous learning and risk management!
-
-</div>
+Automatizati rularea cu task scheduler
