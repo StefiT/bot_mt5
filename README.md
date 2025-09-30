@@ -62,6 +62,7 @@ cd MT5-Trading-Bot
 📁 Structura Proiectului
 
 MT5-Trading-Bot/
+
 ├── 🤖 bot_mt5.py          # Botul principal de tranzacționare
 
 ├── 🔍 diagnostic.py       # Diagnostic detaliat al sistemului
