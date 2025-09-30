@@ -56,13 +56,18 @@ Descarcă Proiectul
 bash
 # Clonează repository-ul sau descarcă fișierele manual
 git clone [URL_REPOSITORY]
+
 cd MT5-Trading-Bot
+
 📁 Structura Proiectului
-text
+
 MT5-Trading-Bot/
 ├── 🤖 bot_mt5.py          # Botul principal de tranzacționare
+
 ├── 🔍 diagnostic.py       # Diagnostic detaliat al sistemului
+
 ├── ✅ checks.py           # Verificări rapide pre-trading
+
 └── 📚 README.md           # Această documentație
 🎯 Utilizare
 Pasul 1: Verificări Inițiale
