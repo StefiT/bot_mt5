@@ -1,204 +1,214 @@
 # bot_mt5
 
-Bot de Tranzacționare MetaTrader 5
-Descriere
-Acest proiect contine un sistem complet de tranzactionare automata pentru MetaTrader 5, scris în Python. Sistemul include bot principal pentru tranzactionare automata, instrumente de diagnostic si verificari rapide.
+## Bot de tranzacționare MetaTrader 5
 
-ATENTIE: Acest bot este destinat pentru învatare si testare. Folositi întotdeauna conturi DEMO pentru testare si înțelegeți riscurile tranzactionarii automate.
+### Descriere
 
-Instalare
-Cerinte Preliminare
-MetaTrader 5 - Descarcat de pe site-ul oficial
+Acest proiect conține un sistem complet de tranzacționare automată pentru MetaTrader 5, scris în Python. Sistemul include:
+- botul principal pentru tranzacționare automată
+- instrumente de diagnostic
+- verificări rapide (pre-trading)
 
-Python 3.7+ - Descarcat de pe python.org
+ATENȚIE: Acest bot este destinat exclusiv pentru învățare și testare. Folosiți întotdeauna conturi DEMO pentru testare și înțelegeți riscurile tranzacționării automate.
 
-Cont DEMO - Înregistrare la un broker care oferă cont demo MT5
+---
 
-Configurare MetaTrader 5
-Deschideți MetaTrader 5 si logati-va pe contul DEMO
+## Instalare
 
-Activati Trading Automat:
+### Cerințe preliminare
 
-Click dreapta în orice grafic -> Expert Advisors -> Allow Automated Trading
+- MetaTrader 5 — descărcat de pe site-ul oficial al brokerului sau al MetaQuotes
+- Python 3.7+ — descărcat de pe python.org
+- Cont DEMO — înregistrare la un broker care oferă cont demo MT5
 
-Butonul "Auto Trading" trebuie sa fie verde
+### Configurare MetaTrader 5
 
-Adaugati simbolul în Market Watch:
+1. Deschideți MetaTrader 5 și conectați-vă la contul DEMO.
+2. Activați Automated Trading:
+   - Click dreapta în orice grafic → Expert Advisors → Allow Automated Trading
+   - Butonul Auto Trading trebuie să fie verde
+3. Adăugați simbolul în Market Watch:
+   - Apăsați Ctrl+M pentru fereastra Market Watch
+   - Click dreapta → Symbols → căutați USDJPY → bifați → Show
 
-Apasati Ctrl+M pentru fereastra Market Watch
+### Instalare pachete Python
 
-Click dreapta -> Symbols -> Cautati USDJPY -> Bifati -> Show
+Instalați pachetele necesare cu managerul de pachete preferat (ex.: pip install MetaTrader5 pandas)
 
-Instalare Pachete Python: pip install MetaTrader5 pandas
+### Descarcare proiect
 
-Descarcare Proiect: git clone [URL-ul repository-ului]
-                    cd MT5-Trading-Bot
+- git clone [URL-ul repository-ului]
+- cd MT5-Trading-Bot
 
-Fisiere Proiect
-bot_mt5.py - Botul principal de tranzactionare cu strategie EMA
+---
 
-diagnostic.py - Script de diagnostic detaliat pentru depanare
+## Fișiere principale
 
-checks.py - Script pentru verificari rapide pre-trading
+- bot_mt5.py — botul principal de tranzacționare (strategia EMA)
+- diagnostic.py — script de diagnostic detaliat pentru depanare
+- checks.py — script pentru verificări rapide pre-trading
 
-Utilizare
-Verificari Initiale: python checks.py
+---
 
-Dupa rulare, trebuie sa vedeti toate verificările cu bifa verde (✅).
+## Utilizare
 
-Diagnostic Complet (Optional): python diagnostic.py
+### Verificări inițiale
 
-Pornire Bot Principal: python bot_mt5.py
+Rulați verificările rapide înainte de orice rulare:
 
-Botul Principal (bot_mt5.py)
-Strategie
-Botul foloseste o strategie EMA (Exponential Moving Average):
+python checks.py
 
-EMA 14 pe timeframe M1 (1 minut)
+După rulare, ar trebui să vedeți toate verificările marcate cu ✅.
 
-Cumpara cand pretul Bid este PESTE EMA
+### Diagnostic (opțional)
 
-Vinde cand pretul Bid este SUB EMA
+Pentru un diagnostic complet:
 
-Stop Loss: 10 ticks | Take Profit: 20 ticks
+python diagnostic.py
 
-Limita: 1 tranzactie pe minut
+### Pornire bot principal
 
-Setari Configurabile
-In fisierul bot_mt5.py puteti modifica:
-   SYMBOL = "USDJPY"                  # Perechea valutară
-   LOT_SIZE = 0.01                    # Dimensiunea lotului
-   STOP_LOSS_TICKS = 10               # Stop Loss în ticks
-   TAKE_PROFIT_TICKS = 20             # Take Profit în ticks
-   TRADING_START_HOUR = 0             # Ora de start
-   TRADING_END_HOUR = 23              # Ora de sfârșit
-   TIMEOUT_MINUTES = 30               # Durata rulare
-   EMA_PERIOD = 14                    # Perioada EMA
-   TIMEFRAME = mt5.TIMEFRAME_M1       # Timeframe-ul
+Pornire:
 
-Diagnostic.py - Instrument Depanare
-Cand sa folositi
-La prima configurare
+python bot_mt5.py
 
-Cand apar erori neasteptate
+---
 
-Dupa update-uri MT5
+## Botul principal (bot_mt5.py)
 
-Cand conexiunea nu functioneaza
+### Strategie
 
-Utilizare: python diagnostic.py
+Botul folosește o strategie EMA (Exponential Moving Average):
 
-Diagnostic.py - Instrument Depanare
-Cand sa folositi
-La prima configurare
+- EMA cu perioada 14 pe timeframe M1 (1 minut)
+- Se cumpără când prețul Bid este peste EMA
+- Se vinde când prețul Bid este sub EMA
+- Stop Loss: 10 ticks
+- Take Profit: 20 ticks
+- Limită: maximum 1 tranzacție pe minut
 
-Cand apar erori neasteptate
+### Setări configurabile
 
-Dupa update-uri MT5
+În fișierul bot_mt5.py puteți modifica:
 
-Cand conexiunea nu functioneaza
+- SYMBOL = "USDJPY" — perechea valutară
+- LOT_SIZE = 0.01 — dimensiunea lotului
+- STOP_LOSS_TICKS = 10 — Stop Loss în ticks
+- TAKE_PROFIT_TICKS = 20 — Take Profit în ticks
+- TRADING_START_HOUR = 0 — ora de start
+- TRADING_END_HOUR = 23 — ora de sfârșit
+- TIMEOUT_MINUTES = 30 — durata rulare (minute)
+- EMA_PERIOD = 14 — perioada EMA
+- TIMEFRAME = mt5.TIMEFRAME_M1 — timeframe-ul
 
-Checks.py - Verificari Rapide
-Cand sa folositi
-Înainte de fiecare rulare a botului
+---
 
-La pornirea zilnica a sistemului
+## diagnostic.py — instrument de depanare
 
-Pentru verificari rapide
+### Când să folosiți
 
-Verificari efectuate
-MT5 deschis si cont logat
+- La prima configurare
+- Când apar erori neașteptate
+- După update-uri MT5
+- Când conexiunea nu funcționează
 
-Buton Auto Trading activat
+### Utilizare
 
-Simbol în Market Watch
+python diagnostic.py
 
-Conexiune internet stabila
+---
 
-Cont demo (nu real)
+## checks.py — verificări rapide
 
-Fonduri suficiente
+### Când să folosiți
 
-Fara alte Expert Advisors activi
-Depanare
-Probleme Comune
-"Failed to initialize MT5"
+- Înainte de fiecare rulare a botului
+- La pornirea zilnică a sistemului
+- Pentru verificări rapide
 
-Cauze: MT5 nu este deschis, contul nu este logat
+### Verificări efectuate
 
-Solutii: Deschideti MT5, rulati python checks.py
+- MT5 deschis și cont logat
+- Buton Auto Trading activat
+- Simbol adăugat în Market Watch
+- Conexiune internet stabilă
+- Cont demo (nu real)
+- Fonduri suficiente
+- Fără alte Expert Advisors activi
 
-Eroare 10027 - "Trade context busy"
+---
 
-Solutie: Botul se reîncearca automat. Asteptati 5-10 secunde.
+## Depanare
 
-Eroare 10030 - "Unsupported filling mode"
+### Probleme comune & soluții
 
-Solutie: Folositi scripturile actualizate
+- "Failed to initialize MT5"
+  - Cauze: MT5 nu este deschis sau contul nu este logat
+  - Soluție: Deschideți MT5 și rulați python checks.py
 
-"No tick data available"
+- Eroare 10027 — "Trade context busy"
+  - Soluție: Botul reîncearcă automat; așteptați 5–10 secunde
 
-Solutie: Verificati daca simbolul este în Market Watch
+- Eroare 10030 — "Unsupported filling mode"
+  - Soluție: Folosiți scripturile actualizate
 
-Flux Depanare Recomandat
-Rulati python checks.py
+- "No tick data available"
+  - Soluție: Verificați dacă simbolul este în Market Watch
 
-Daca exista probleme, rulati python diagnostic.py
+### Flux de depanare recomandat
 
-Rezolvati problemele identificate
+1. Rulați python checks.py
+2. Dacă există probleme, rulați python diagnostic.py
+3. Rezolvați problemele identificate
+4. Rulați din nou python checks.py
+5. Porniți botul principal cu python bot_mt5.py
 
-Rulati din nou python checks.py
+---
 
-Porniti botul principal cu python bot_mt5.py
+## Avertismente de securitate
 
-Avertizari Securitate
-FOLOSITI DOAR CONT DEMO pentru testare
+- FOLOSIȚI DOAR CONT DEMO pentru testare
+- TESTAȚI CU VOLUME MICI (ex.: 0.01 lot)
+- MONITORIZAȚI primele rulări ale botului
+- ÎNȚELEGEȚI RISCURILE tranzacționării automate
+- FACEȚI BACKUP la cod înainte de modificări
+- NU FOLOSIȚI BANII NECESARI PENTRU TRAIUL ZILNIC
 
-TESTATI CU VOLUME MICI (0.01 lot)
+---
 
-MONITORIZATI primele rulari ale botului
+## Mentenanță
 
-ÎNȚELECETI RISCURILE tranzactionarii automate
+### Verificări periodice
 
-FACETI BACKUP la cod înainte de modificari
+- Actualizați MetaTrader 5 la versiunea cea mai recentă
+- Rulați python checks.py înainte de rulări importante
+- Verificați fișierele de log pentru erori neașteptate
+- Actualizați pachetele Python
 
-NU FOLOSITI BANII necesari pentru traiul zilnic
+---
 
-Mentenanta
-Verificari Periodice
-Actualizati MetaTrader 5 la versiunea latest
+## Performanță și monitorizare
 
-Rulati python checks.py înainte de rulari importante
+- Verificați fișierele de log generate de bot
+- Monitorizați contul în MT5 pentru tranzacții (ferestrele "Trade" și "History")
+- Verificați tab-ul "Experts" din jurnalul MT5 pentru erori
 
-Verificati logs pentru erori neasteptate
+---
 
-Actualizati pachetele Python
+## Suport
 
-Suport
-Daca întâmpinati probleme:
+Dacă întâmpinați probleme:
 
-Verificati aceasta documentatie mai întâi
+- Consultați mai întâi această documentație
+- Folosiți diagnostic.py pentru identificarea problemelor
+- Asigurați-vă că toți pașii de instalare și configurare au fost respectați
 
-Folositi diagnostic.py pentru a identifica problemele
+---
 
-Asigurati-va ca toti pasii de instalare sunt respectati
+## Pași recomandați
 
-Performanta si Monitorizare
-Pentru a monitoriza performanta botului:
+- Testați pe cont DEMO timp de cel puțin 1 săptămână
+- Analizați performanța și ajustați parametrii
+- Personalizați strategia după preferințe
+- Automatizați rularea cu un task scheduler (de ex. cron sau Task Scheduler) și monitorizați periodic
 
-Verificati fisierele de log generate de bot
-
-Monitorizati contul în MT5 pentru tranzactii
-
-Folositi ferestrele "Trade" si "History" din MT5
-
-Verificati tab-ul "Experts" din jurnalul MT5 pentru erori
-
-Urmatorii Pasi Recomandati
-Testati pe cont DEMO timp de cel putin 1 saptamâna
-
-Analizati performanta si ajustati parametrii
-
-Personalizati strategia dupa preferinte
-
-Automatizati rularea cu task scheduler
