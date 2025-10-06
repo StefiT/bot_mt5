@@ -1,15 +1,10 @@
-# bot_mt5
+# Bot de tranzacționare MetaTrader 5
 
-## Bot de tranzacționare MetaTrader 5
+## Descriere
 
-### Descriere
+Acest proiect conține un sistem complet de tranzacționare automată pentru MetaTrader 5, scris în Python. Sistemul include botul principal pentru tranzacționare automată, instrumente de diagnostic și verificări rapide pre-trading.
 
-Acest proiect conține un sistem complet de tranzacționare automată pentru MetaTrader 5, scris în Python. Sistemul include:
-- botul principal pentru tranzacționare automată
-- instrumente de diagnostic
-- verificări rapide (pre-trading)
-
-ATENȚIE: Acest bot este destinat exclusiv pentru învățare și testare. Folosiți întotdeauna conturi DEMO pentru testare și înțelegeți riscurile tranzacționării automate.
+**ATENȚIE:** Acest bot este destinat exclusiv pentru învățare și testare. Folosiți întotdeauna conturi DEMO pentru testare și înțelegeți riscurile tranzacționării automate.
 
 ---
 
@@ -17,9 +12,9 @@ ATENȚIE: Acest bot este destinat exclusiv pentru învățare și testare. Folos
 
 ### Cerințe preliminare
 
-- MetaTrader 5 — descărcat de pe site-ul oficial al brokerului sau al MetaQuotes
-- Python 3.7+ — descărcat de pe python.org
-- Cont DEMO — înregistrare la un broker care oferă cont demo MT5
+- MetaTrader 5 — descărcat de pe site-ul oficial al brokerului sau al MetaQuotes.
+- Python 3.7+ — descărcat de pe python.org.
+- Cont DEMO — înregistrare la un broker care oferă cont demo MT5.
 
 ### Configurare MetaTrader 5
 
@@ -29,186 +24,139 @@ ATENȚIE: Acest bot este destinat exclusiv pentru învățare și testare. Folos
    - Butonul Auto Trading trebuie să fie verde
 3. Adăugați simbolul în Market Watch:
    - Apăsați Ctrl+M pentru fereastra Market Watch
-   - Click dreapta → Symbols → căutați USDJPY → bifați → Show
+   - Click dreapta → Symbols → căutați EURUSD → bifați → Show
 
 ### Instalare pachete Python
 
-Instalați pachetele necesare cu managerul de pachete preferat (ex.: pip install MetaTrader5 pandas)
+Instalați pachetele necesare:
 
-### Descarcare proiect
-
-- git clone [URL-ul repository-ului]
-- cd MT5-Trading-Bot
-
----
-
-## Fișiere principale
-
-- bot_mt5.py — botul principal de tranzacționare (strategia EMA)
-- diagnostic.py — script de diagnostic detaliat pentru depanare
-- checks.py — script pentru verificări rapide pre-trading
+pip install MetaTrader5 pandas numpy
 
 ---
 
 ## Utilizare
 
-### Verificări inițiale
+### Verificări rapide
 
-Rulați verificările rapide înainte de orice rulare:
+Rulați verificările rapide înainte de rulare:
 
 python checks.py
 
-După rulare, ar trebui să vedeți toate verificările marcate cu ✅.
+### Diagnostic complet
 
-### Diagnostic (opțional)
-
-Pentru un diagnostic complet:
+Pentru diagnostic complet:
 
 python diagnostic.py
 
-### Pornire bot principal
+### Testare strategii pe date istorice
 
-Pornire:
+Rulați backtest-urile cu:
+
+python run_backtest.py
+
+### Pornire bot tranzacționare
+
+Pornire bot:
 
 python bot_mt5.py
 
 ---
 
-## Botul principal (bot_mt5.py)
+## Fișiere proiect
 
-### Strategie
-
-Botul folosește o strategie EMA (Exponential Moving Average):
-
-- EMA cu perioada 14 pe timeframe M1 (1 minut)
-- Se cumpără când prețul Bid este peste EMA
-- Se vinde când prețul Bid este sub EMA
-- Stop Loss: 10 ticks
-- Take Profit: 20 ticks
-- Limită: maximum 1 tranzacție pe minut
-
-### Setări configurabile
-
-În fișierul bot_mt5.py puteți modifica:
-
-- SYMBOL = "USDJPY" — perechea valutară
-- LOT_SIZE = 0.01 — dimensiunea lotului
-- STOP_LOSS_TICKS = 10 — Stop Loss în ticks
-- TAKE_PROFIT_TICKS = 20 — Take Profit în ticks
-- TRADING_START_HOUR = 0 — ora de start
-- TRADING_END_HOUR = 23 — ora de sfârșit
-- TIMEOUT_MINUTES = 30 — durata rulare (minute)
-- EMA_PERIOD = 14 — perioada EMA
-- TIMEFRAME = mt5.TIMEFRAME_M1 — timeframe-ul
+- `bot_mt5.py` — Botul principal pentru tranzacționare live
+- `backtesting_engine.py` — Sistem de testare strategii pe date istorice
+- `run_backtest.py` — Script pentru rularea testelor
+- `diagnostic.py` — Instrument de diagnosticare probleme
+- `checks.py` — Verificări rapide pre-trading
+- `strategies/` — Director cu strategii de tranzacționare
+- `results/` — Rezultate testare (generate automat)
 
 ---
 
-## diagnostic.py — instrument de depanare
+## Configurare strategii
 
-### Când să folosiți
+### Strategii incluse
 
-- La prima configurare
-- Când apar erori neașteptate
-- După update-uri MT5
-- Când conexiunea nu funcționează
+- **EMAStrategy** — Strategie bazată pe crossover între medii mobile exponentiale
+- **RSIStrategy** — Strategie bazată pe indicatorul RSI
 
-### Utilizare
+### Adăugare strategie nouă
 
-python diagnostic.py
+1. Creați un fișier nou în folderul `strategies/`.
+2. Definiți o clasă cu metoda `generate_signals`.
+3. Modificați configurația din `bot_mt5.py` pentru a selecta noua strategie.
+
+### Exemplu configurație
+
+În `bot_mt5.py` modificați valorile:
+
+STRATEGY_MODULE = "nume_fisier_strategie"
+STRATEGY_CLASS = "NumeClasaStrategie"
+STRATEGY_PARAMS = parametrii_strategiei
 
 ---
 
-## checks.py — verificări rapide
+## Management risc
 
-### Când să folosiți
+Setările de management al riscului se găsesc în `bot_mt5.py`:
 
-- Înainte de fiecare rulare a botului
-- La pornirea zilnică a sistemului
-- Pentru verificări rapide
-
-### Verificări efectuate
-
-- MT5 deschis și cont logat
-- Buton Auto Trading activat
-- Simbol adăugat în Market Watch
-- Conexiune internet stabilă
-- Cont demo (nu real)
-- Fonduri suficiente
-- Fără alte Expert Advisors activi
+- STOP_LOSS_TICKS — Număr de ticks pentru Stop Loss
+- TAKE_PROFIT_TICKS — Număr de ticks pentru Take Profit
+- LOT_SIZE — Dimensiunea lotului de tranzacționare
+- TRADING_START_HOUR — Ora de începere tranzacționare
+- TRADING_END_HOUR — Ora de încheiere tranzacționare
 
 ---
 
 ## Depanare
 
-### Probleme comune & soluții
+### Probleme frecvente
 
-- "Failed to initialize MT5"
-  - Cauze: MT5 nu este deschis sau contul nu este logat
-  - Soluție: Deschideți MT5 și rulați python checks.py
+- **Eroare "Failed to initialize MT5"** — Verificați că MT5 este deschis și contul este conectat.
+- **Eroare "No module named"** — Verificați că fișierul strategiei există în folderul `strategies/`.
+- **Eroare 10027 "Trade context busy"** — Așteptați câteva secunde; botul reîncearcă automat.
 
-- Eroare 10027 — "Trade context busy"
-  - Soluție: Botul reîncearcă automat; așteptați 5–10 secunde
+### Flux recomandat
 
-- Eroare 10030 — "Unsupported filling mode"
-  - Soluție: Folosiți scripturile actualizate
-
-- "No tick data available"
-  - Soluție: Verificați dacă simbolul este în Market Watch
-
-### Flux de depanare recomandat
-
-1. Rulați python checks.py
-2. Dacă există probleme, rulați python diagnostic.py
-3. Rezolvați problemele identificate
-4. Rulați din nou python checks.py
-5. Porniți botul principal cu python bot_mt5.py
+1. Rulați `python checks.py` pentru verificări inițiale.
+2. Testați strategiile cu `python run_backtest.py`.
+3. Alegeți strategia cu cele mai bune rezultate.
+4. Configurați strategia în `bot_mt5.py`.
+5. Rulați `python bot_mt5.py` pe cont DEMO.
 
 ---
 
-## Avertismente de securitate
+## Securitate
 
-- FOLOSIȚI DOAR CONT DEMO pentru testare
-- TESTAȚI CU VOLUME MICI (ex.: 0.01 lot)
-- MONITORIZAȚI primele rulări ale botului
-- ÎNȚELEGEȚI RISCURILE tranzacționării automate
-- FACEȚI BACKUP la cod înainte de modificări
-- NU FOLOSIȚI BANII NECESARI PENTRU TRAIUL ZILNIC
-
----
-
-## Mentenanță
-
-### Verificări periodice
-
-- Actualizați MetaTrader 5 la versiunea cea mai recentă
-- Rulați python checks.py înainte de rulări importante
-- Verificați fișierele de log pentru erori neașteptate
-- Actualizați pachetele Python
+- Folosiți doar cont DEMO pentru testare.
+- Testați cu volume mici (ex.: 0.01 lot).
+- Monitorizați primele rulări ale botului.
+- Înțelegeți riscurile tranzacționării automate.
+- Faceți backup la cod înainte de modificări.
 
 ---
 
-## Performanță și monitorizare
+## Dezvoltare
 
-- Verificați fișierele de log generate de bot
-- Monitorizați contul în MT5 pentru tranzacții (ferestrele "Trade" și "History")
-- Verificați tab-ul "Experts" din jurnalul MT5 pentru erori
+Proiectul acceptă contribuții pentru:
+
+- Noi strategii de tranzacționare
+- Îmbunătățiri la sistemul de backtesting
+- Instrumente de monitoring și raportare
+- Documentație îmbunătățită
 
 ---
 
 ## Suport
 
-Dacă întâmpinați probleme:
+Pentru probleme sau întrebări:
 
-- Consultați mai întâi această documentație
-- Folosiți diagnostic.py pentru identificarea problemelor
-- Asigurați-vă că toți pașii de instalare și configurare au fost respectați
+- Consultați această documentație.
+- Rulați `python diagnostic.py` pentru informații detaliate.
+- Asigurați-vă că toate cerințele sunt îndeplinite.
 
 ---
 
-## Pași recomandați
-
-- Testați pe cont DEMO timp de cel puțin 1 săptămână
-- Analizați performanța și ajustați parametrii
-- Personalizați strategia după preferințe
-- Automatizați rularea cu un task scheduler (de ex. cron sau Task Scheduler) și monitorizați periodic
+**Notă:** Succesul în tranzacționare necesită învățare continuă și management al riscului.
 
